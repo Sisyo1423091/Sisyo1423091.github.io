@@ -15,8 +15,6 @@ body{
    background-color: black;          /* 背景色：白色 */
    font-weight: bold;                /* 太字 */
    position: relative;
-
-   /*margin-top: 200px;*/
 }
 
 /* タブのマウスオーバー時の設定 */

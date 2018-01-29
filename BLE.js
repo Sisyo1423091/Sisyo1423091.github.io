@@ -17,6 +17,18 @@ const ledToggel = () => {
   })
 }
 
+//サイコロの出目を表示
+function valueDisplay()
+{
+  g_characteristic.readValue()
+  .then((val) => {
+    let led_state = val.getUint8(0); //値読み取り、形式変換
+    document.getElementById('valueDisplay').textContent = led_state;
+  })
+
+  requestAnimationFrame(valueDisplay());
+}
+
 //接続処理
 const main = () => {
   return navigator.bluetooth.requestDevice({acceptAllDevices:true, optionalServices:[UUID]})
@@ -40,6 +52,7 @@ const main = () => {
       g_characteristic = characteristic;
       $light.removeEventListener('click',main);
       $light.addEventListener('click',ledToggel);
+      valueDisplay();
       return characteristic;
     })
   .catch(error => {
