@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DiceApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+    <p id="tabcontrol">
+        <a href="#page1">メイン</a>
+        <a href="#page2">画像設定</a>
+        <a href="#page3">その他</a>
+    </p>
+    <div id="tabbody">
+        <!-- メインメニュー -->
+        <div id="page1">ページ１</div>
+        <!-- 画像設定メニュー -->
+        <div id="page2">
+            <input type="file" id="files" name="files[]" multiple /><br>
+            <output id="list"></output>
+
+            <script>
+                 var num = 0;                        //画像読み込み回数
+
+                function handleFileSelect(evt) {
+                var files = evt.target.files; // FileList object
+               
+                // Loop through the FileList and render image files as thumbnails.
+                for (var i = 0, f; f = files[i]; i++) {
+
+                // Only process image files.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+
+                var reader = new FileReader();
+
+                // Closure to capture the file information.
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                    // Render thumbnail.
+                    num++;
+                    var span = document.createElement('span');
+                    span.innerHTML = ['<h1>',num ,'</h1><img class="thumb" src="', e.target.result,
+                                        '" title="', escape(theFile.name), '"/><br>'].join('');
+                    document.getElementById('list').insertBefore(span, null);
+                    };
+                })(f);
+                    // Read in the image file as a data URL.
+                    reader.readAsDataURL(f);
+                    }
+                }
+                document.getElementById('files').addEventListener('change', handleFileSelect, false);
+            </script>
+        </div>
+        <!-- その他 -->
+        <div id="page3">
+            <p onclick="setDiceValue()">出目の最大数の変更</p>
+            <p id="connect">サイコロとの接続</p>
+            <p>現在のサイコロの値:</p><p id="valDisplay">0</p>
+        </div>
+    </div>
+</body>
+
+<!-- タブ用スクリプト -->
+<script type="text/javascript">
+    //ページ切り替えタブの取得
+    var tabs = document.getElementById('tabcontrol').getElementsByTagName('a');
+    var pages = document.getElementById('tabbody').getElementsByTagName('div');
+
+    function changeTab() {
+    //href属性値から対象のid名を抜き出す
+    var targetid = this.href.substring(this.href.indexOf('#')+1,this.href.length);
+
+    //指定のタブページだけを表示する
+    for(var i=0; i<pages.length; i++) {
+        if( pages[i].id != targetid ) {
+            pages[i].style.display = "none";
+        }
+        else {
+            pages[i].style.display = "block";
+        }
+    }
+
+    // クリックされたタブを前面に表示する
+    for(var i=0; i<tabs.length; i++) {
+        tabs[i].style.zIndex = "0";
+    }
+    this.style.zIndex = "10";
+
+    // ページ遷移しないように
+    return false;
+}
+
+//すべてのタブに対してクリック時にchangeTab関数が実行されるように設定
+for(var i=0; i < tabs.length; i++) {
+    tabs[i].onclick = changeTab;
+}
+
+// 最初は先頭のタブを選択
+tabs[0].onclick();
+</script>
+    
+</html>
