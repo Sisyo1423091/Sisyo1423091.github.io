@@ -1,3 +1,5 @@
+var diceValue = 6;
+
 window.onload = function()
 {
     instantiateButton();
