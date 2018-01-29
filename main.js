@@ -3,7 +3,6 @@ var diceValue = 6;
 window.onload = function()
 {
     instantiateButton();
-    valueReception();
 }
 
 //ボタンの生成
