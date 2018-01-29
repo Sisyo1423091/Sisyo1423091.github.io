@@ -16,7 +16,7 @@ body{
    font-weight: bold;                /* 太字 */
    position: relative;
 
-   margin-top: 200px;
+   /*margin-top: 200px;*/
 }
 
 /* タブのマウスオーバー時の設定 */
@@ -47,11 +47,6 @@ body{
     background-color: white; /* 背景色：白色 */
     position: relative;      /* z-indexを調整するために必要 */
     z-index: 0;              /* 重なり順序を「最も背面」にするため */
-}
-
-#page2 input
-{
-
 }
 
 /* プレビュー表示　デフォルト画像を設定 */
