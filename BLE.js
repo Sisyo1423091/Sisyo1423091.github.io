@@ -2,9 +2,9 @@
 
 const UUID = '19b10000-e8f2-537e-4f6c-d104768a1214';
 const SERVICE_UUID = '19b10001-e8f2-537e-4f6c-d104768a1214';
-let g_characteristic = {};
-const $light = document.querySelector('#light');
-const $bulb = document.querySelector('.bulb');
+let   g_characteristic = {};
+// const $light = document.querySelector('#light');
+// const $bulb = document.querySelector('.bulb');
 
 //接続後にon/off切り替え
 const ledToggel = () => {
@@ -50,24 +50,24 @@ const main = () => {
 /**
  * domのclass付け替え(表示切り替え)
  */
-function toggelClass(led_state){
-  if(led_state){
-    addClass('#ff0000');
-  }else{
-    removeClass();
-  }
-}
+// function toggelClass(led_state){
+//   if(led_state){
+//     addClass('#ff0000');
+//   }else{
+//     removeClass();
+//   }
+// }
 
-function removeClass(){
-    $bulb.style.background = '#bbb';
-    $bulb.style.boxShadow = '';
-    $bulb.classList.remove("light_up");
-}
+// function removeClass(){
+//     $bulb.style.background = '#bbb';
+//     $bulb.style.boxShadow = '';
+//     $bulb.classList.remove("light_up");
+// }
 
-function addClass(color){
-    $bulb.style.background = color;
-    $bulb.style.boxShadow = `0 -10px 100px ${color}`;
-    $bulb.classList.add("light_up");
-}
+// function addClass(color){
+//     $bulb.style.background = color;
+//     $bulb.style.boxShadow = `0 -10px 100px ${color}`;
+//     $bulb.classList.add("light_up");
+// }
 
-$light.addEventListener('click', main);
+document.getElementById('connect').addEventListener('click', main);
