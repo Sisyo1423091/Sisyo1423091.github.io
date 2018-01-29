@@ -81,5 +81,3 @@ const valueReception = () => {
 
     requestAnimationFrame(valueReception());
 }
-
-document.getElementById('connect').addEventListener('click', main);
