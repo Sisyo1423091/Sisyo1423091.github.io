@@ -25,6 +25,8 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
         <button id="scan" class="button">Scan</button>
         <button id="connect" class="button">Connect</button>
         <button id="read" class="button">Read</button>
+        <button id="startNotifications" class="button">Start Notify</button>
+        <button id="stopNotifications" class="button">Stop Notify</button>
         <hr>
         <div id="device_name"> </div>
         <div id="uuid_name"> </div>
@@ -78,7 +80,23 @@ ble.onRead = function (data, uuid){
   //HTMLに値を表示
   document.getElementById('data_text').innerHTML = value;
   document.getElementById('uuid_name').innerHTML = uuid;
-  document.getElementById('status').innerHTML = "read data"
+  document.getElementById('status').innerHTML = "read data";
+}
+//--------------------------------------------------
+//Start Notify後の処理
+//--------------------------------------------------
+ble.onStartNotify = function(uuid){
+  console.log('> Start Notify!');
+  document.getElementById('uuid_name').innerHTML = uuid;
+  document.getElementById('status').innerHTML = "started Notify";
+}
+//--------------------------------------------------
+//Stop Notify後の処理
+//--------------------------------------------------
+ble.onStopNotify = function(uuid){
+  console.log('> Stop Notify!');
+  document.getElementById('uuid_name').innerHTML = uuid;
+  document.getElementById('status').innerHTML = "stopped Notify";
 }
 //-------------------------------------------------
 //ボタンが押された時のイベント登録
@@ -91,6 +109,12 @@ document.getElementById('connect').addEventListener('click', function(){
 });
 document.getElementById('read').addEventListener('click', function(){
       ble.read('UUID');
+});
+document.getElementById('startNotifications').addEventListener('click', function() {
+      ble.startNotify('UUID');
+});
+document.getElementById('stopNotifications').addEventListener('click', function() {
+      ble.stopNotify('UUID');
 });
 </script>
 </body>
