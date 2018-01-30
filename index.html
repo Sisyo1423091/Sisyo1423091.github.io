@@ -50,7 +50,7 @@ var ble = new BlueJelly();
 //--------------------------------------------------
 window.onload = function () {
   //UUIDの設定 サービスUUID　キャラクタリスティックUUID
-  ble.setUUID("UUID", "19B10000-E8F2-537E-4F6C-D104768A1214", "19B10000-E8F2-537E-4F6C-D104768A1214");  //BLEnano SimpleControl rx_uuid
+  ble.setUUID("UUID", "19B10011-E8F2-537E-4F6C-D104768A1214", "19B10012-E8F2-537E-4F6C-D104768A1214");  //BLEnano SimpleControl rx_uuid
 }
 //--------------------------------------------------
 //Scan後の処理
@@ -72,7 +72,7 @@ ble.onConnectGATT = function (uuid) {
 //--------------------------------------------------
 ble.onRead = function (data, uuid){
   //フォーマットに従って値を取得
-  value = data.getInt16(0);//2Byteの場合のフォーマット
+  value = data.getInt8(0);//2Byteの場合のフォーマット
   //コンソールに値を表示
   console.log(value);
   //HTMLに値を表示
