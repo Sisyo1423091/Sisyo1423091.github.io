@@ -89,12 +89,15 @@ ble.onRead = function (data, uuid){
   console.log(value);
   //同じ値が指定した時間続いた場合確定表示
   if(prevValue == value){ sameFrame++;} 
-  else{ prevValue = value;}
+  else{ 
+    prevValue = value;
+    document.getElementById('dice1').style.backgroundColor = 'white';
+    sameFrame = 0;
+  }
   //確定したダイスのハイライト
   if(sameFrame >= confirmFrame){
     document.getElementById('dice1').style.backgroundColor = 'orange';
   }
-  else{document.getElementById('dice1').style.backgroundColor = 'white';}
   //HTMLに値を表示
   document.getElementById('data_text1').innerHTML = value;
   // document.getElementById('uuid_name').innerHTML = uuid;
@@ -108,12 +111,15 @@ ble2.onRead = function (data, uuid){
   console.log(value);
   //同じ値が指定した時間続いた場合確定表示
   if(prevValue2 == value){ sameFrame2++;} 
-  else{ prevValue2 = value;}
+  else{ 
+    prevValue2 = value;
+    document.getElementById('dice2').style.backgroundColor = 'white';
+    sameFrame2 = 0;
+  }
   //確定したダイスのハイライト
   if(sameFrame2 >= confirmFrame){
     document.getElementById('dice2').style.backgroundColor = 'orange';
   }
-  else{document.getElementById('dice2').style.backgroundColor = 'white';}
   //HTMLに値を表示
   document.getElementById('data_text2').innerHTML = value;
   // document.getElementById('uuid_name').innerHTML = uuid;
