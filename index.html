@@ -60,6 +60,12 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
 //BlueJellyのインスタンス生成
 var ble = new BlueJelly();
 var ble2 = new BlueJelly();
+
+var prevValue = 0;      //前の値
+var confirmTime = 0;  //承認待ち時間
+
+const confirmLength = 100;  //承認待機時間
+
 //--------------------------------------------------
 //ロード時の処理
 //--------------------------------------------------
@@ -106,6 +112,19 @@ ble.onRead = function (data, uuid){
   document.getElementById('data_text').innerHTML = value;
   // document.getElementById('uuid_name').innerHTML = uuid;
   // document.getElementById('status').innerHTML = "read data";
+  //同じ値の時間を調べる　出目の決定の判定
+  if(prevValue == value){ confirmTime++;}
+  else
+  { 
+    prevValue = value;
+    confirmTime = 0;
+    document.getElementById('data_text').style.backgroundColor = 'white';
+  }
+
+  if(confirmTime >= confirmLength)
+  {
+    document.getElementById('data_text').style.backgroundColor = 'orange';
+  }
 }
 ble2.onRead = function (data, uuid){
   //フォーマットに従って値を取得
