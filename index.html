@@ -22,9 +22,10 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
 
     <div class="contents margin">
         <!-- <button id="scan" class="button">Scan</button> -->
-        <!-- <button id="connect" class="button">Connect</button> -->
+        <button id="connect" class="button">Connect</button>
+        <button id="connect2" class="button">Connect2</button>
         <button id="read" class="button">Read</button>
-        <button id="read2" class="button">Read</button>
+        <button id="read2" class="button">Read2</button>
     </div>
     <!-- 値の表示 -->
     <div id="valueDisplay">
@@ -132,6 +133,12 @@ ble2.onRead = function (data, uuid){
 // document.getElementById('scan').addEventListener('click', function() {
 //       ble.scan('UUID');
 // });
+document.getElementById('connect').addEventListener('click', function(){
+      ble.connectGATT('UUID');
+});
+document.getElementById('connect2').addEventListener('click', function(){
+      ble2.connectGATT('UUID');
+});
 document.getElementById('read').addEventListener('click', function(){
       ble.read('UUID');
 });
