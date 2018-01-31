@@ -6,39 +6,39 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="BLE Dice">
+    <meta name="description" content="BlueJelly">
     <meta name="viewport" content="width=640, maximum-scale=1.0, user-scalable=yes">
-    <title>BLE Dice</title>
+    <title>BlueJelly</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <script type="text/javascript" src="bluejelly.js"></script>
   </head>
 
 <body>
 <div class="container">
     <div class="title margin">
-        <p id="title">BLE Dice</p>
+        <p id="title">BlueJelly Sample</p>
+        <p id="subtitle">ConnectとUUID</p>
     </div>
 
     <div class="contents margin">
-        <!-- <button id="scan" class="button">Scan</button> -->
+        <button id="scan" class="button">Scan</button>
         <button id="connect" class="button">Connect</button>
-        <button id="connect2" class="button">Connect2</button>
         <button id="read" class="button">Read</button>
-        <button id="read2" class="button">Read2</button>
+        <button id="startNotifications" class="button">Start Notify</button>
+        <button id="stopNotifications" class="button">Stop Notify</button>
+        <hr>
+        <div id="device_name"> </div>
+        <div id="uuid_name"> </div>
+        <div id="status"> </div>
+        <hr>
+        <div id="device_name"> </div>
+        <div id="uuid_name"> </div>
+        <div id="data_text"> </div>
+        <div id="status"> </div>
     </div>
-    <!-- 値の表示 -->
-    <div id="valueDisplay">
-      <div class="spacer">
-        <div id="dice1">
-            <h1 id="data_text1">0</h1>
-        </div>
-      </div>
-      <div class="spacer">
-        <div id="dice2">
-            <h1 id="data_text2">0</h1>
-        </div>
-      </div>
+    <div class="footer margin">
+        For more information, see <a href="http://jellyware.jp/kurage" target="_blank">jellyware.jp</a> and <a href="https://github.com/electricbaka/bluejelly" target="_blank">GitHub</a> !
     </div>
 </div>
 <script>
@@ -46,40 +46,29 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
 //Global変数
 //--------------------------------------------------
 //BlueJellyのインスタンス生成
-var ble  = new BlueJelly();
-var ble2 = new BlueJelly();
-
-var prevValue = 0;    //サイコロ１の前フレームの値
-var prevValue2 = 0;   //サイコロ２の前フレームの値
-
-var sameFrame = 0;    //サイコロ１のフレームカウンタ
-var sameFrame2 = 0;   //サイコロ２のフレームカウンタ
-const confirmFrame = 100;
+var ble = new BlueJelly();
 //--------------------------------------------------
 //ロード時の処理
 //--------------------------------------------------
 window.onload = function () {
   //UUIDの設定 サービスUUID　キャラクタリスティックUUID
-  ble.setUUID("UUID", "713d0000-503e-4c75-ba94-3148f18d941e", "713d0002-503e-4c75-ba94-3148f18d941e");
-  ble2.setUUID("UUID", "713d0000-503e-4c75-ba94-3148f18d941e", "713d0002-503e-4c75-ba94-3148f18d941e");
+  ble.setUUID("UUID", "713d0000-503e-4c75-ba94-3148f18d941e", "713d0002-503e-4c75-ba94-3148f18d941e");  //BLEnano SimpleControl rx_uuid
 }
 //--------------------------------------------------
 //Scan後の処理
 //--------------------------------------------------
 ble.onScan = function (deviceName) {
-  
-}
-ble2.onScan = function (deviceName) {
-  
+  document.getElementById('device_name').innerHTML = deviceName;
+  document.getElementById('status').innerHTML = "found device!";
 }
 //--------------------------------------------------
 //ConnectGATT後の処理
 //--------------------------------------------------
 ble.onConnectGATT = function (uuid) {
-  setInterval(ble.read('UUID'),500);
-}
-ble2.onConnectGATT = function (uuid) {
-  setInterval(ble2.read('UUID'),500);
+  console.log('> connected GATT!');
+  document.getElementById('uuid_name').innerHTML = uuid;
+  document.getElementById('status').innerHTML = "connected GATT!";
+  setInterval("ble.read('UUID')",1000);
 }
 //--------------------------------------------------
 //Read後の処理：得られたデータの表示など行う
@@ -89,61 +78,44 @@ ble.onRead = function (data, uuid){
   value = data.getInt8(0);//2Byteの場合のフォーマット
   //コンソールに値を表示
   console.log(value);
-  //同じ値が指定した時間続いた場合確定表示
-  if(prevValue == value){ sameFrame++;} 
-  else{ 
-    prevValue = value;
-    document.getElementById('dice1').style.backgroundColor = 'white';
-    sameFrame = 0;
-  }
-  //確定したダイスのハイライト
-  if(sameFrame >= confirmFrame){
-    document.getElementById('dice1').style.backgroundColor = 'orange';
-  }
   //HTMLに値を表示
-  document.getElementById('data_text1').innerHTML = value;
-  // document.getElementById('uuid_name').innerHTML = uuid;
-  // document.getElementById('status').innerHTML = "read data";
+  document.getElementById('data_text').innerHTML = value;
+  document.getElementById('uuid_name').innerHTML = uuid;
+  document.getElementById('status').innerHTML = "read data";
 }
-
-ble2.onRead = function (data, uuid){
-  //フォーマットに従って値を取得
-  value = data.getInt8(0);//2Byteの場合のフォーマット
-  //コンソールに値を表示
-  console.log(value);
-  //同じ値が指定した時間続いた場合確定表示
-  if(prevValue2 == value){ sameFrame2++;} 
-  else{ 
-    prevValue2 = value;
-    document.getElementById('dice2').style.backgroundColor = 'white';
-    sameFrame2 = 0;
-  }
-  //確定したダイスのハイライト
-  if(sameFrame2 >= confirmFrame){
-    document.getElementById('dice2').style.backgroundColor = 'orange';
-  }
-  //HTMLに値を表示
-  document.getElementById('data_text2').innerHTML = value;
-  // document.getElementById('uuid_name').innerHTML = uuid;
-  // document.getElementById('status').innerHTML = "read data";
+//--------------------------------------------------
+//Start Notify後の処理
+//--------------------------------------------------
+ble.onStartNotify = function(uuid){
+  console.log('> Start Notify!');
+  document.getElementById('uuid_name').innerHTML = uuid;
+  document.getElementById('status').innerHTML = "started Notify";
+}
+//--------------------------------------------------
+//Stop Notify後の処理
+//--------------------------------------------------
+ble.onStopNotify = function(uuid){
+  console.log('> Stop Notify!');
+  document.getElementById('uuid_name').innerHTML = uuid;
+  document.getElementById('status').innerHTML = "stopped Notify";
 }
 //-------------------------------------------------
 //ボタンが押された時のイベント登録
 //--------------------------------------------------
-// document.getElementById('scan').addEventListener('click', function() {
-//       ble.scan('UUID');
-// });
+document.getElementById('scan').addEventListener('click', function() {
+      ble.scan('UUID');
+});
 document.getElementById('connect').addEventListener('click', function(){
       ble.connectGATT('UUID');
-});
-document.getElementById('connect2').addEventListener('click', function(){
-      ble2.connectGATT('UUID');
 });
 document.getElementById('read').addEventListener('click', function(){
       ble.read('UUID');
 });
-document.getElementById('read2').addEventListener('click', function(){
-      ble2.read('UUID');
+document.getElementById('startNotifications').addEventListener('click', function() {
+      ble.startNotify('UUID');
+});
+document.getElementById('stopNotifications').addEventListener('click', function() {
+      ble.stopNotify('UUID');
 });
 </script>
 </body>
