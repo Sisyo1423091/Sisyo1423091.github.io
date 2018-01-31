@@ -82,8 +82,8 @@ var rock = false;
 const confirmLength = 5;  //承認待機時間
 
 //指定周波数の音の再生　オーディオコンテキスト
-var audioCtx = new AudioContext;
-var tones = [262, 277, 294, 311, 330, 349, 340, 392, 415, 440, 466, 494];
+// var audioCtx = new AudioContext;
+// var tones = [262, 277, 294, 311, 330, 349, 340, 392, 415, 440, 466, 494];
 
 //--------------------------------------------------
 //ロード時の処理
@@ -105,17 +105,17 @@ update = function()
   {
     document.getElementById('valueSum').innerHTML = valBuf + valBuf2;
 
-    var osc      = audioCtx.createOscillator();
-    var gain     = audioCtx.createGain();
-    gain.connect(audioCtx.destination);
-    //出目の値の応じた音の再生
-    var type = "sawtooth";
-    var freq = tones[valBuf + valBuf2];
-    var level = 1;
+    // var osc      = audioCtx.createOscillator();
+    // var gain     = audioCtx.createGain();
+    // gain.connect(audioCtx.destination);
+    // //出目の値の応じた音の再生
+    // var type = "sawtooth";
+    // var freq = tones[valBuf + valBuf2];
+    // var level = 1;
 
-    //音の再生
-    osc.start();
-    osc.stop(1);
+    // //音の再生
+    // osc.start();
+    // osc.stop(1);
     
     //今回の出目を保存しておく
     prevBuf = valBuf;
