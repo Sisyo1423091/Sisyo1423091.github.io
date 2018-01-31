@@ -34,9 +34,15 @@ body
     font-size: 32px;
 }
 
+#sumSpace
+{
+    width: 90%;
+    height: auto;
+    background-color: white;
+}
+
 #valueSum{
     font-size: 128px;
 
     text-align: center;
-    background-color: white;
 }
