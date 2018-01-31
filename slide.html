@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>卒業制作発表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="slide.css" />
+</head>
+<body>
+    <p id="tabcontrol">
+        <a href="#page1">1</a>
+        <a href="#page2">2</a>
+        <a href="#page3">3</a>
+        <a href="#page4">4</a>
+        <a href="#page5">5</a>
+        <a href="#page6">6</a>
+        <a href="#page7">7</a>
+    </p>
+    <div id="tabbody">
+        <div id="page1">
+            
+        </div>
+        <div id="page2">
+            
+        </div>
+        <div id="page3">
+            
+        </div>
+        <div id="page4">
+            
+        </div>
+        <div id="page5">
+            
+        </div>
+        <div id="page7">
+            <button id="scan" class="button">Scan</button>
+            <button id="connect" class="button">Connect</button>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        //UUIDの設定 サービスUUID　キャラクタリスティックUUID
+        ble.setUUID("UUID", "713d0000-503e-4c75-ba94-3148f18d941e", "713d0002-503e-4c75-ba94-3148f18d941e");  //BLEnano SimpleControl rx_uuid
+    }
+    ble.onScan = function (deviceName) {
+        document.getElementById('device_name').innerHTML = deviceName;
+        document.getElementById('status').innerHTML = "found device!";
+    }
+    ble.onConnectGATT = function (uuid) {
+        console.log('> connected GATT!');
+        // document.getElementById('uuid_name').innerHTML = uuid;
+        // document.getElementById('status').innerHTML = "connected GATT!";
+        setInterval("ble.read('UUID')",500);
+    }
+    ble.onRead = function (data, uuid){
+        //フォーマットに従って値を取得
+        value = data.getInt8(0);//2Byteの場合のフォーマット
+    }
+    // ---------------------------
+    // ▼A：対象要素を得る
+    // ---------------------------
+    var tabs = document.getElementById('tabcontrol').getElementsByTagName('a');
+    var pages = document.getElementById('tabbody').getElementsByTagName('div');
+
+    function changeTab() {
+    // ▼B-1. href属性値から対象のid名を抜き出す
+    var targetid = this.href.substring(this.href.indexOf('#')+1,this.href.length);
+
+    // ▼B-2. 指定のタブページだけを表示する
+    for(var i=0; i<pages.length; i++) {
+        if( pages[i].id != targetid ) {
+            pages[i].style.display = "none";
+        }
+        else {
+            pages[i].style.display = "block";
+        }
+    }
+
+    // ▼B-3. クリックされたタブを前面に表示する
+    for(var i=0; i<tabs.length; i++) {
+        tabs[i].style.zIndex = "0";
+    }
+    this.style.zIndex = "10";
+
+    // ▼B-4. ページ遷移しないようにfalseを返す
+    return false;
+}
+
+// ---------------------------
+// ▼C：すべてのタブに対して、クリック時にchangeTab関数が実行されるよう指定する
+// ---------------------------
+for(var i=0; i < tabs.length; i++) {
+    tabs[i].onclick = changeTab;
+}
+    
+// ---------------------------
+// ▼D：最初は先頭のタブを選択しておく
+// ---------------------------
+tabs[0].onclick();
+
+document.getElementById('scan').addEventListener('click', function() {
+      ble.scan('UUID');
+});
+document.getElementById('connect').addEventListener('click', function(){
+      ble.connectGATT('UUID');
+});
+</script>
+</html>
