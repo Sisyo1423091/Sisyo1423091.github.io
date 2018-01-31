@@ -95,8 +95,9 @@ ble.onRead = function (data, uuid){
   else{document.getElementById('dice1').style.backgroundColor = 'white';}
   //HTMLに値を表示
   document.getElementById('data_text1').innerHTML = value;
-  document.getElementById('uuid_name').innerHTML = uuid;
-  document.getElementById('status').innerHTML = "read data";
+  // document.getElementById('uuid_name').innerHTML = uuid;
+  // document.getElementById('status').innerHTML = "read data";
+  setInterval(ble.read('UUID'),500);
 }
 
 ble2.onRead = function (data, uuid){
@@ -114,8 +115,9 @@ ble2.onRead = function (data, uuid){
   else{document.getElementById('dice2').style.backgroundColor = 'white';}
   //HTMLに値を表示
   document.getElementById('data_text2').innerHTML = value;
-  document.getElementById('uuid_name').innerHTML = uuid;
-  document.getElementById('status').innerHTML = "read data";
+  // document.getElementById('uuid_name').innerHTML = uuid;
+  // document.getElementById('status').innerHTML = "read data";
+  setInterval(ble2.read('UUID'),500);
 }
 //-------------------------------------------------
 //ボタンが押された時のイベント登録
