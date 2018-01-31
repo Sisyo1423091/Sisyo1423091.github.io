@@ -88,7 +88,7 @@ window.onload = function () {
   update();
 }
 
-function update()
+update = function()
 {
   //出目の決定
   if(decision && decision2)
@@ -96,7 +96,7 @@ function update()
     document.getElementById('valueSum').innerHTML = valBuf + valBuf2;
   }
 
-  requestAnimationFrame(update());
+  requestAnimationFrame(update);
 }
 
 //--------------------------------------------------
