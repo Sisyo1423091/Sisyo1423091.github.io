@@ -39,9 +39,7 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
           <div id="data_text2"> </div>
       </div>
       <!-- 合計値の表示 -->
-      <div id="sum">
-        
-      </div>
+      <div id="valueSum"></div>
 
         <!-- <button id="read" class="button">Read</button>
         <button id="startNotifications" class="button">Start Notify</button>
@@ -172,7 +170,7 @@ ble2.onRead = function (data, uuid){
 //出目の決定
 if(decision && decision2)
 {
-  document.getElementById('sum').innerHTML = valBuf + valBuf2;
+  document.getElementById('valueSum').innerHTML = valBuf + valBuf2;
 }
 // //--------------------------------------------------
 // //Start Notify後の処理
