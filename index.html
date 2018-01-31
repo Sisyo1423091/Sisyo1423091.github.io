@@ -21,7 +21,7 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
     </div>
 
     <div class="contents margin">
-        <button id="scan" class="button">Scan</button>
+        <!-- <button id="scan" class="button">Scan</button> -->
         <!-- <button id="connect" class="button">Connect</button> -->
         <button id="read" class="button">Read</button>
         <button id="read2" class="button">Read</button>
@@ -66,8 +66,10 @@ window.onload = function () {
 //Scan後の処理
 //--------------------------------------------------
 ble.onScan = function (deviceName) {
-  document.getElementById('device_name').innerHTML = deviceName;
-  document.getElementById('status').innerHTML = "found device!";
+  setInterval(ble.read('UUID'),500);
+}
+ble2.onScan = function (deviceName) {
+  setInterval(ble2.read('UUID'),500);
 }
 //--------------------------------------------------
 //ConnectGATT後の処理
@@ -117,7 +119,6 @@ ble2.onRead = function (data, uuid){
   document.getElementById('data_text2').innerHTML = value;
   // document.getElementById('uuid_name').innerHTML = uuid;
   // document.getElementById('status').innerHTML = "read data";
-  setInterval(ble2.read('UUID'),500);
 }
 //-------------------------------------------------
 //ボタンが押された時のイベント登録
