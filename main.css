@@ -33,3 +33,10 @@ body
     text-align: center;
     font-size: 32px;
 }
+
+#valueSum{
+    font-size: 128px;
+
+    margin: auto;
+    background-color: white;
+}
