@@ -10,22 +10,30 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
     <meta name="viewport" content="width=640, maximum-scale=1.0, user-scalable=yes">
     <title>BlueJelly</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="bluejelly.js"></script>
   </head>
 
 <body>
 <div class="container">
     <div class="title margin">
-        <p id="title">BlueJelly Sample</p>
-        <p id="subtitle">ConnectとUUID</p>
+        <p id="title">BLE Dice</p>
+        <p id="subtitle">Scan押下後にconnect押下で出目受信開始</p>
     </div>
 
     <div class="contents margin">
-        <button id="scan" class="button">Scan</button>
-        <button id="scan2" class="button">Scan</button>
-        <button id="connect" class="button">Connect</button>
-        <button id="connect2" class="button">Connect</button>
+      <div class="spacer">
+          <button id="scan" class="button">Scan</button>
+          <button id="connect" class="button">Connect</button>
+
+          <div id="data_text"> </div>
+      </div>
+      <div class="spacer">
+          <button id="scan2" class="button">Scan</button>
+          <button id="connect2" class="button">Connect</button>
+
+          <div id="data_text2"> </div>
+      </div>
         <!-- <button id="read" class="button">Read</button>
         <button id="startNotifications" class="button">Start Notify</button>
         <button id="stopNotifications" class="button">Stop Notify</button>
@@ -36,12 +44,9 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
         <hr>
         <div id="device_name"> </div>
         <div id="uuid_name"> </div> -->
-        <div id="data_text"> </div>
-        <div id="data_text2"> </div>
+        
+        
         <!-- <div id="status"> </div> -->
-    </div>
-    <div class="footer margin">
-        For more information, see <a href="http://jellyware.jp/kurage" target="_blank">jellyware.jp</a> and <a href="https://github.com/electricbaka/bluejelly" target="_blank">GitHub</a> !
     </div>
 </div>
 <script>
