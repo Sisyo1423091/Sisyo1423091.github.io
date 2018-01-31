@@ -38,6 +38,11 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
 
           <div id="data_text2"> </div>
       </div>
+      <!-- 合計値の表示 -->
+      <div id="sum">
+        
+      </div>
+
         <!-- <button id="read" class="button">Read</button>
         <button id="startNotifications" class="button">Start Notify</button>
         <button id="stopNotifications" class="button">Stop Notify</button>
@@ -65,6 +70,12 @@ var prevValue = 0;      //前の値
 var prevValue2 = 0;
 var confirmTime = 0;  //承認待ち時間
 var confirmTime2 = 0;
+var valBuf = 0;         //出目の一時保存
+var valBuf2 = 0;
+
+var decision = false; //出目の決定
+var decision2 = false;
+var rock = false;
 
 const confirmLength = 5;  //承認待機時間
 
@@ -121,11 +132,14 @@ ble.onRead = function (data, uuid){
     prevValue = value;
     confirmTime = 0;
     document.getElementById('data_text').style.backgroundColor = 'white';
+    decision = false;
   }
 
   if(confirmTime >= confirmLength)
   {
     document.getElementById('data_text').style.backgroundColor = 'orange';
+    decision = true;
+    valBuf = value;
   }
 }
 ble2.onRead = function (data, uuid){
@@ -144,12 +158,21 @@ ble2.onRead = function (data, uuid){
     prevValue2 = value;
     confirmTime2 = 0;
     document.getElementById('data_text2').style.backgroundColor = 'white';
+    decision2 = false;
   }
 
   if(confirmTime2 >= confirmLength)
   {
     document.getElementById('data_text2').style.backgroundColor = 'orange';
+    decision2 = true;
+    valBuf2 = value;
   }
+}
+
+//出目の決定
+if(decision && decision2)
+{
+  document.getElementById('sum').innerHTML = valBuf + valBuf2;
 }
 // //--------------------------------------------------
 // //Start Notify後の処理
