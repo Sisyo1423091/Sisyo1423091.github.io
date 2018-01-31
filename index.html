@@ -68,6 +68,8 @@ ble.onConnectGATT = function (uuid) {
   console.log('> connected GATT!');
   document.getElementById('uuid_name').innerHTML = uuid;
   document.getElementById('status').innerHTML = "connected GATT!";
+
+  setInterval("ble.read('UUID')",1000);
 }
 //--------------------------------------------------
 //Read後の処理：得られたデータの表示など行う
@@ -116,7 +118,6 @@ document.getElementById('startNotifications').addEventListener('click', function
 document.getElementById('stopNotifications').addEventListener('click', function() {
       ble.stopNotify('UUID');
 });
-setInterval("ble.read('UUID')",1000);
 </script>
 </body>
 </html>
