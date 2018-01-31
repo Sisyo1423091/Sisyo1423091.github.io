@@ -10,7 +10,7 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
     <meta name="viewport" content="width=640, maximum-scale=1.0, user-scalable=yes">
     <title>BlueJelly</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <script type="text/javascript" src="bluejelly.js"></script>
   </head>
 
@@ -65,7 +65,7 @@ window.onload = function () {
 //--------------------------------------------------
 ble.onRead = function (data, uuid){
   //フォーマットに従って値を取得
-  value = data.getInt16(0);//2Byteの場合のフォーマット
+  value = data.getInt8(0);//2Byteの場合のフォーマット
   //コンソールに値を表示
   console.log(value);
   //HTMLに値を表示
@@ -75,7 +75,7 @@ ble.onRead = function (data, uuid){
 }
 ble2.onRead = function (data, uuid){
   //フォーマットに従って値を取得
-  value = data.getInt16(0);//2Byteの場合のフォーマット
+  value = data.getInt8(0);//2Byteの場合のフォーマット
   //コンソールに値を表示
   console.log(value);
   //HTMLに値を表示
