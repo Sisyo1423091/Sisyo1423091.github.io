@@ -81,6 +81,7 @@ ble.onRead = function (data, uuid){
   document.getElementById('data_text').innerHTML = value;
   document.getElementById('uuid_name').innerHTML = uuid;
   document.getElementById('status').innerHTML = "read data";
+  requestAnimationFrame(ble.onRead());
 }
 //--------------------------------------------------
 //Start Notify後の処理
