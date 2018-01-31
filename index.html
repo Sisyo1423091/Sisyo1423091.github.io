@@ -72,8 +72,8 @@ var confirmTime = 0;  //承認待ち時間
 var confirmTime2 = 0;
 var valBuf = 0;         //出目の一時保存
 var valBuf2 = 0;
-var prevBuf = 0;
-var prevBuf2 = 0;
+var prevBuf = 7;
+var prevBuf2 = 7;
 
 var decision = false; //出目の決定
 var decision2 = false;
@@ -109,12 +109,20 @@ update = function()
     var oscillator = audioCtx.createOscillator();
     oscillator.connect( audioCtx.destination );
 
+    //波形の選択
     oscillator.type = 'sawtooth';
+    //出目の値に対応した音階を配列から呼びだし
     oscillator.frequency.value = tones[valBuf + valBuf2];
 
+    //音の長さ
     var soundLength = 0.5;
+
+    //音楽再生
     oscillator.start();
+    //音楽停止
     oscillator.stop( audioCtx.currentTime + soundLength );
+
+    //今回の出目を保存しておく
     prevBuf = valBuf;
     prevBuf2 = valBuf2;
   }
