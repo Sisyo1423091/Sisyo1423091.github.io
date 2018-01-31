@@ -25,12 +25,16 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
       <div class="spacer">
           <button id="scan" class="button">Scan</button>
           <button id="connect" class="button">Connect</button>
+          <div id="device_name"></div>
+          <div id="status"></div>
 
           <div id="data_text"> </div>
       </div>
       <div class="spacer">
           <button id="scan2" class="button">Scan</button>
           <button id="connect2" class="button">Connect</button>
+          <div id="device_name2"></div>
+          <div id="status2"></div>
 
           <div id="data_text2"> </div>
       </div>
@@ -72,8 +76,8 @@ ble.onScan = function (deviceName) {
   document.getElementById('status').innerHTML = "found device!";
 }
 ble2.onScan = function (deviceName) {
-  document.getElementById('device_name').innerHTML = deviceName;
-  document.getElementById('status').innerHTML = "found device!";
+  document.getElementById('device_name2').innerHTML = deviceName;
+  document.getElementById('status2').innerHTML = "found device!";
 }
 //--------------------------------------------------
 //ConnectGATT後の処理
