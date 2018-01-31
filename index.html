@@ -84,7 +84,21 @@ window.onload = function () {
   //UUIDの設定 サービスUUID　キャラクタリスティックUUID
   ble.setUUID("UUID", "713d0000-503e-4c75-ba94-3148f18d941e", "713d0002-503e-4c75-ba94-3148f18d941e");  //BLEnano SimpleControl rx_uuid
   ble2.setUUID("UUID", "713d0000-503e-4c75-ba94-3148f18d941e", "713d0002-503e-4c75-ba94-3148f18d941e");  //BLEnano SimpleControl rx_uuid
+
+  update();
 }
+
+function update()
+{
+  //出目の決定
+  if(decision && decision2)
+  {
+    document.getElementById('valueSum').innerHTML = valBuf + valBuf2;
+  }
+
+  requestAnimationFrame(update());
+}
+
 //--------------------------------------------------
 //Scan後の処理
 //--------------------------------------------------
@@ -167,11 +181,6 @@ ble2.onRead = function (data, uuid){
   }
 }
 
-//出目の決定
-if(decision && decision2)
-{
-  document.getElementById('valueSum').innerHTML = valBuf + valBuf2;
-}
 // //--------------------------------------------------
 // //Start Notify後の処理
 // //--------------------------------------------------
