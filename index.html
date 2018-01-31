@@ -105,23 +105,18 @@ update = function()
   {
     document.getElementById('valueSum').innerHTML = valBuf + valBuf2;
 
+    var osc      = audioCtx.createOscillator();
+    var gain     = audioCtx.createGain();
+    gain.connect(audioCtx.destination);
     //出目の値の応じた音の再生
-    var oscillator = audioCtx.createOscillator();
-    oscillator.connect( audioCtx.destination );
+    var type = "sawtooth";
+    var freq = tones[valBuf + valBuf2];
+    var level = 1;
 
-    //波形の選択
-    oscillator.type = 'sawtooth';
-    //出目の値に対応した音階を配列から呼びだし
-    oscillator.frequency.value = tones[valBuf + valBuf2];
-
-    //音の長さ
-    var soundLength = 0.5;
-
-    //音楽再生
-    oscillator.start();
-    //音楽停止
-    oscillator.stop( audioCtx.currentTime + soundLength );
-
+    //音の再生
+    osc.start();
+    osc.stop(1);
+    
     //今回の出目を保存しておく
     prevBuf = valBuf;
     prevBuf2 = valBuf2;
