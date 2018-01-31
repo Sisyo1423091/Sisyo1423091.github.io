@@ -99,7 +99,6 @@ ble.onRead = function (data, uuid){
   document.getElementById('data_text1').innerHTML = value;
   // document.getElementById('uuid_name').innerHTML = uuid;
   // document.getElementById('status').innerHTML = "read data";
-  setInterval(ble.read('UUID'),500);
 }
 
 ble2.onRead = function (data, uuid){
