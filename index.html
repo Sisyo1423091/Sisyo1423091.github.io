@@ -176,8 +176,8 @@ ble.onRead = function (data, uuid){
   if(confirmTime >= confirmLength)
   {
     document.getElementById('data_text').style.backgroundColor = 'orange';
-    decision = true;
     valBuf = value;
+    decision = true;
   }
 }
 ble2.onRead = function (data, uuid){
@@ -202,8 +202,8 @@ ble2.onRead = function (data, uuid){
   if(confirmTime2 >= confirmLength)
   {
     document.getElementById('data_text2').style.backgroundColor = 'orange';
-    decision2 = true;
     valBuf2 = value;
+    decision2 = true;
   }
 }
 
