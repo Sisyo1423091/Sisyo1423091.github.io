@@ -23,6 +23,7 @@ Copyright 2017 JellyWare Inc. All Rights Reserved.
 
     <div class="contents margin">
         <button id="scan" class="button">Scan</button>
+        <button id="scan2" class="button">Scan</button>
         <button id="connect" class="button">Connect</button>
         <button id="connect2" class="button">Connect</button>
         <button id="read" class="button">Read</button>
@@ -62,6 +63,10 @@ window.onload = function () {
 //Scan後の処理
 //--------------------------------------------------
 ble.onScan = function (deviceName) {
+  document.getElementById('device_name').innerHTML = deviceName;
+  document.getElementById('status').innerHTML = "found device!";
+}
+ble2.onScan = function (deviceName) {
   document.getElementById('device_name').innerHTML = deviceName;
   document.getElementById('status').innerHTML = "found device!";
 }
@@ -125,8 +130,14 @@ ble.onStopNotify = function(uuid){
 document.getElementById('scan').addEventListener('click', function() {
       ble.scan('UUID');
 });
+document.getElementById('scan2').addEventListener('click', function() {
+      ble2.scan('UUID');
+});
 document.getElementById('connect').addEventListener('click', function(){
       ble.connectGATT('UUID');
+});
+document.getElementById('connect2').addEventListener('click', function(){
+      ble2.connectGATT('UUID');
 });
 document.getElementById('read').addEventListener('click', function(){
       ble.read('UUID');
