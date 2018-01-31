@@ -62,7 +62,9 @@ var ble = new BlueJelly();
 var ble2 = new BlueJelly();
 
 var prevValue = 0;      //前の値
+var prevValue2 = 0;
 var confirmTime = 0;  //承認待ち時間
+var confirmTime2 = 0;
 
 const confirmLength = 5;  //承認待機時間
 
@@ -135,6 +137,19 @@ ble2.onRead = function (data, uuid){
   document.getElementById('data_text2').innerHTML = value;
   // document.getElementById('uuid_name').innerHTML = uuid;
   // document.getElementById('status').innerHTML = "read data";
+  //同じ値の時間を調べる　出目の決定の判定
+  if(prevValue2 == value){ confirmTime++;}
+  else
+  { 
+    prevValue2 = value;
+    confirmTime2 = 0;
+    document.getElementById('data_text2').style.backgroundColor = 'white';
+  }
+
+  if(confirmTime2 >= confirmLength)
+  {
+    document.getElementById('data_text2').style.backgroundColor = 'orange';
+  }
 }
 // //--------------------------------------------------
 // //Start Notify後の処理
